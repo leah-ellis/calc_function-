@@ -1,0 +1,119 @@
+import json
+import boto3    
+
+names = ["John","Leah","Bob","Peter","Lucy","Sally","Aaron"]
+
+def create_user(
+    user_name):
+    response = cnt_client.create_user(
+    Username='names',
+    PhoneConfig={
+        'PhoneType': 'SOFT_PHONE'|'DESK_PHONE'
+    },
+    SecurityProfileIds=[
+        '12345678-1111-2222-aaaa-a1b2c3d4f5g7',
+    ],
+    RoutingProfileId='87654321-9999-3434-abcd-x1y2z3a1b2c3',
+    InstanceId='8e994822-a222-4059-a998-2d873299fc73'
+)
+    """Fetches user names from list entitled names.
+
+    Adds new users to the AWS Connect User Management console. 
+
+    Args:
+        user_name: name entered as string.
+        PhoneConfig: choose between soft and desk phone
+        SecurityProfileIds:identifier of the security profile for the user  
+        RoutingProfileId:identifier of the routing profile for the user 
+        InstanceId:identifier of the Amazon Connect instance
+
+    Returns:
+        A new user is represented as a concatenated string response. 
+        For example:
+
+        User, Paul has now been added to Connect Client Management
+
+    Raises:
+        An error occurrs for duplicate names.
+        For example:
+        
+        EntityAlreadyExistsException
+    """
+def delete_user(user_name):
+    delete_response = connect.cnt_client.delete_user(UserName = user_name)
+        """Fetches user names from list entitled names.
+
+    Adds new users to the AWS Connect User Management console. 
+
+    Args:
+        user_name: name entered as string.
+        PhoneConfig: choose between soft and desk phone
+        SecurityProfileIds:identifier of the security profile for the user  
+        RoutingProfileId:identifier of the routing profile for the user 
+        InstanceId:identifier of the Amazon Connect instance
+
+    Returns:
+        A new user is represented as a concatenated string response. 
+        For example:
+
+        User, Paul has now been deleted from Connect Client Management
+
+    Raises:
+        An error occurrs for duplicate names.
+        For example:
+        
+        EntityAlreadyExistsException
+    """
+
+def lambda_handler(event,context):
+    global cnt_client
+    cnt_client = boto3.client('connect')
+    
+    for n in names:
+        create_user(n)
+        print("User, " + n + " has now been added to Connect Client Management")
+        
+#   for n in names2:
+#       delete_user(n)
+#       print("User, " + n + " has now been deleted from Connect Client Management")
+
+
+#Below are the results of the test event referenced
+# {
+#   "version": "0",
+#   "id": "1b5d8feb-c973-4cf7-a9f1-bf3703467718",
+#   "detail-type": "Amazon Connect Contact Event",
+#   "source": "aws.connect",
+#   "account": "123456789012",
+#   "time": "2020-12-22T18:43:48Z",
+#   "region": "us-east-1",
+#   "resources": ["arn:aws:connect:us-east-1:123456789012:instance/cb54730f-5aac-4376-b2f4-7c822889931e", "arn:aws:connect:us-east-1:123456789012:instance/cb54730f-5aac-4376-b2f4-7c822889931e/contact/f533d9c4-e712-4cc2-8548-20ef905b0247"],
+#   "detail": {
+#     "eventType": "CONNECTED_TO_AGENT",
+#     "contactId": "f533d9c4-e712-4cc2-8548-20ef905b0247",
+#     "initialContactId": "51f2639f-7b0a-47ee-9e79-c8776a34035f",
+#     "previousContactId": "07cbf052-e977-41d1-acff-af2c2880ee79",
+#     "channel": "VOICE",
+#     "instanceArn": "arn:aws:connect:us-east-1:123456789012:instance/cb54730f-5aac-4376-b2f4-7c822889931e",
+#     "initiationMethod": "TRANSFER",
+#     "queueInfo": {
+#       "queueArn": "arn:aws:connect:us-east-1:123456789012:instance/cb54730f-5aac-4376-b2f4-7c822889931e/queue/8fac3066-6b37-4d9f-819c-2f18c478db72",
+#       "queueType": "STANDARD"
+#     },
+#     "agentInfo": {
+#       "agentArn": "arn:aws:connect:us-east-1:123456789012:instance/cb54730f-5aac-4376-b2f4-7c822889931e/agent/957183ad-ce68-48df-a8bf-7063146a7c0c"
+#     }
+#   }
+# }
+
+
+#Sample AWS New User
+    # aws connect create-user \
+    # --username Mary \
+    # --password Pass@Word1 \
+    # --identity-info FirstName=Mary,LastName=Major \
+    # --phone-config PhoneType=DESK_PHONE,AutoAccept=true,AfterContactWorkTimeLimit=60,DeskPhoneNumber=+15555551212 \
+    # --security-profile-id 12345678-1111-2222-aaaa-a1b2c3d4f5g7 \
+    # --routing-profile-id 87654321-9999-3434-abcd-x1y2z3a1b2c3 \
+    # --instance-id a1b2c3d4-5678-90ab-cdef-EXAMPLE11111
+    
