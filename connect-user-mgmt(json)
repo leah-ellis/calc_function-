@@ -15,7 +15,7 @@
   },
   "RoutingProfileId": "Basic Routing Profile",
   "SecurityProfileIds": "Admin",
-  "InstanceId": "PENDING"
+  "InstanceId": "PENDING",
   "Username": "janedoe"
 }
 
