@@ -1,11 +1,33 @@
 import json
 import boto3    
 
-names = ["John","Leah","Bob","Peter","Lucy","Sally","Aaron"]
-names2 = ["Luke","Tom","Brenda"]
-names3 = ["Paul","Kwame","Micah, Sydney, Josh"]
+iam_client = boto3.client('iam')
 
-
+def lambda_handler(
+    event, context
+):  
+    # creating local variables from the event
+    names = event['names']
+    names2 = event['names2']
+    names3 = event['names3']
+    action = event['action']
+    
+    # evaluating what action to take 
+    print("The test event has been prompted to " + action)
+    if action == "create":
+        for n in names:
+            create_user(n)
+            print("User, " + n + " has now been added to IAM Mgmt")
+        # loop through creating users
+    elif action == "delete":
+        for n in names2: 
+            delete_user(n)
+            print("User, " + n + " has now been deleted from IAM Mgmt")
+        # loop through deleting users
+    else:
+        print('Line 30 - No Action Taken')
+     
+    
 def create_user(
     user_name
 ):
@@ -55,18 +77,3 @@ def delete_user(
         EntityAlreadyExistsException
     """
     
-def lambda_handler(
-    event, context
-):  
-    global iam_client
-    iam_client = boto3.client('iam')
-    
-    # for n in names3:
-    #     delete_user(n)
-    #     print("User, " + n + " has now been deleted from IAM Mgmt")
-    
-    # for n in names3:
-    #     create_user(n)
-    #     print("User, " + n + " has now been added to IAM Mgmt")
-    
-    # new_user = create_user("Abraham")
