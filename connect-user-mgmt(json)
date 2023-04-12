@@ -1,0 +1,26 @@
+{
+  "DirectoryUserId": "",
+  "HierarchyGroupId": "",
+  "IdentityInfo": {
+    "Email": "janedoe@sts.io",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Mobile": "434-907-3967",
+    "SecondaryEmail": ""
+  },
+  "Password": "",
+  "PhoneConfig": {
+    "AfterContactWorkTimeLimit": 60,
+    "AutoAccept": true,
+    "DeskPhoneNumber": "+14148679678",
+    "PhoneType": "DESK_PHONE"
+  },
+  "RoutingProfileId": "Basic Routing Profile",
+  "SecurityProfileIds": [
+    "Admin"
+  ],
+  "Tags": {
+    "string": ""
+  },
+  "Username": "janedoe"
+}
